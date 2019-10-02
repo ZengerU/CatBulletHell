@@ -12,11 +12,13 @@ public class PlayerCollission : MonoBehaviour
 {
     #region Public Members
 
-    public GameObject explosionPrefab;
 
     #endregion
 
     #region Private Members
+
+    [SerializeField]
+    private GameObject _explosionPrefab;
 
     #endregion
 
@@ -31,7 +33,7 @@ public class PlayerCollission : MonoBehaviour
         {
             print("Collision occured, ending game.");
             Vector3 explosionPos = collision.GetComponent<Collider2D>().ClosestPoint(transform.position);
-            Instantiate(explosionPrefab, explosionPos, Quaternion.identity);
+            Instantiate(_explosionPrefab, explosionPos, Quaternion.identity);
             FindObjectOfType<GameLogic>().GameOver();
         }
     }

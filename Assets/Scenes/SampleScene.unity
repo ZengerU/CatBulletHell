@@ -588,7 +588,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   size: 1
   speed: 1
-  sprite: {fileID: -2559775460605376131, guid: f96bd33a3c3bd9347a0bf2739857cc45, type: 3}
 --- !u!1 &692044701
 GameObject:
   m_ObjectHideFlags: 0
@@ -1358,12 +1357,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5140e70071b8a243b821900d84069a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteAnim: {fileID: 1713505190}
-  playerChar: {fileID: 1885081529}
-  meteorParent: {fileID: 2028902559}
-  endGameCanvas: {fileID: 1482366992}
-  playerBaseSpeed: 2
   gamePaused: 0
+  _spriteAnim: {fileID: 1713505190}
+  _playerChar: {fileID: 1885081529}
+  _meteorParent: {fileID: 2028902559}
+  _endGameCanvas: {fileID: 1482366992}
+  _playerBaseSpeed: 1
 --- !u!4 &1337473990
 Transform:
   m_ObjectHideFlags: 0
@@ -1390,16 +1389,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba1aac517ae60de47bc84b278dbb2ef2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meteorSpawnBoundaryBox: {fileID: 1055752617}
-  meteorParent: {fileID: 2028902559}
-  meteorTypeList:
+  _meteorSpawnBoundaryBox: {fileID: 1055752617}
+  _meteorParent: {fileID: 2028902559}
+  _meteorTypeList:
   - {fileID: 1668341876515210141, guid: 0ba1f355cd21e654f89eecd9853dad03, type: 3}
   - {fileID: 1182483661021321545, guid: 64ae32ab4f519f54894270c3a916039e, type: 3}
-  meteorSpeed: 1
-  meteorSpawnInterval: 1
-  meteorMaxSpeed: 4
-  speedStepMulti: 1.2
-  simSpeedUpdateInterval: 10
+  _meteorSpeed: 1
+  _meteorSpawnInterval: 1
+  _meteorMaxSpeed: 4
+  _speedStepMultiplier: 1.2
+  _speedStepInterval: 10
 --- !u!1 &1482366992
 GameObject:
   m_ObjectHideFlags: 0
@@ -1414,7 +1413,7 @@ GameObject:
   - component: {fileID: 1482366993}
   - component: {fileID: 1482366997}
   m_Layer: 5
-  m_Name: Game Over Canvas
+  m_Name: End Game Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1532,7 +1531,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   size: 1.5
   speed: 2
-  sprite: {fileID: 1774318226260575771, guid: 96423fe362cf6fb4dae09c8e05b8fe91, type: 3}
 --- !u!1 &1713505186
 GameObject:
   m_ObjectHideFlags: 0
@@ -1770,7 +1768,7 @@ GameObject:
   - component: {fileID: 1885081530}
   - component: {fileID: 1885081532}
   m_Layer: 0
-  m_Name: PlayerObject
+  m_Name: PlayerChar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1851,8 +1849,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5afd241368b10c444ae5e8b9f59dacb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionPrefab: {fileID: 5995056622134583410, guid: 838f1d69b6ca3574985ccbbe99aebd22,
-    type: 3}
+  _explosionPrefab: {fileID: 0}
 --- !u!1 &2028902558
 GameObject:
   m_ObjectHideFlags: 0

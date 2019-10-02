@@ -13,7 +13,6 @@ public class CatProperty : MonoBehaviour
     #region Public Members
     [Range(0.5f, 5.0f)]
     public float size = 1, speed = 1;
-    public Sprite sprite;
     #endregion
 
     #region Private Members

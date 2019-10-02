@@ -13,28 +13,32 @@ using UnityEngine.UI;
 public class GameLogic : MonoBehaviour
 {
     #region Public Members
-    public Animator spriteAnim;
-    public Transform playerChar, meteorParent;
-    public GameObject endGameCanvas;
-    [Range(0.5f, 5.0f)]
-    public float playerBaseSpeed = 1f;
     [HideInInspector]
     public bool gamePaused = false;
     #endregion
 
     #region Private Members
-    float activeCatSpeed = 1;
-    Vector3 playerBaseScale;
-    GameTime scoreCalc;
+    [SerializeField]
+    private Animator _spriteAnim;
+    [SerializeField]
+    private Transform _playerChar, _meteorParent;
+    [SerializeField]
+    private GameObject _endGameCanvas;
+    [SerializeField]
+    [Range(0.5f, 5.0f)]
+    private float _playerBaseSpeed = 1f;
+    private float _activeCatSpeed = 1;
+    private Vector3 _playerBaseScale;
+    private GameTime _scoreCalc;
     #endregion
 
     #region Public Functions
     //Called via PlayerCollission script in the event of a collission.
     public void GameOver()
     {
-        playerChar.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
+        _playerChar.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
         GetComponent<MeteorSpawner>().enabled = false;
-        foreach (Transform child in meteorParent)
+        foreach (Transform child in _meteorParent)
         {
             child.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
         }
@@ -51,58 +55,58 @@ public class GameLogic : MonoBehaviour
     #region Private Functions
     private void Start()
     {
-        playerBaseScale = playerChar.localScale;
-        scoreCalc = FindObjectOfType<GameTime>();
+        _playerBaseScale = _playerChar.localScale;
+        _scoreCalc = FindObjectOfType<GameTime>();
     }
     private void Update()
     {
         CheckInput();
     }
 
-    void CheckInput()
+    private void CheckInput()
     {
         if (gamePaused) return;
 
         //Player Movement
         Vector3 tmp = Vector3.zero;
-        tmp.x = Input.GetAxisRaw("Horizontal") * playerBaseSpeed * activeCatSpeed;
-        tmp.y = Input.GetAxisRaw("Vertical") * playerBaseSpeed * activeCatSpeed;
-        playerChar.GetComponent<Rigidbody2D>().velocity = tmp;
+        tmp.x = Input.GetAxisRaw("Horizontal") * _playerBaseSpeed * _activeCatSpeed;
+        tmp.y = Input.GetAxisRaw("Vertical") * _playerBaseSpeed * _activeCatSpeed;
+        _playerChar.GetComponent<Rigidbody2D>().velocity = tmp;
 
         //Change Active Cat
         if (Input.GetButtonDown("Jump"))
         {
             GameObject currentCat, nextCat;
-            currentCat = nextCat = playerChar.GetChild(0).gameObject;
-            foreach (Transform child in playerChar)
+            currentCat = nextCat = _playerChar.GetChild(0).gameObject;
+            foreach (Transform child in _playerChar)
             {
                 if (child.gameObject.activeSelf)
                 {
                     currentCat = child.gameObject;
-                    nextCat = playerChar.GetChild((currentCat.transform.GetSiblingIndex() + 1) % playerChar.childCount).gameObject;
+                    nextCat = _playerChar.GetChild((currentCat.transform.GetSiblingIndex() + 1) % _playerChar.childCount).gameObject;
                     break;
                 }
             }
             currentCat.SetActive(false);
             nextCat.SetActive(true);
-            playerChar.localScale = playerBaseScale * nextCat.GetComponent<CatProperty>().size;
-            activeCatSpeed = nextCat.GetComponent<CatProperty>().speed;
-            spriteAnim.SetTrigger("next");
+            _playerChar.localScale = _playerBaseScale * nextCat.GetComponent<CatProperty>().size;
+            _activeCatSpeed = nextCat.GetComponent<CatProperty>().speed;
+            _spriteAnim.SetTrigger("next");
         }
     }
 
     //Collision occured, game ending.
-    void EndGame()
+    private void EndGame()
     {
-        PlayerPrefs.SetFloat("HS", Mathf.Max(scoreCalc.count, scoreCalc.highScore));
-        endGameCanvas.SetActive(true);
-        Text endText = endGameCanvas.GetComponentInChildren<Text>();
+        PlayerPrefs.SetFloat("HS", Mathf.Max(_scoreCalc.count, _scoreCalc.highScore));
+        _endGameCanvas.SetActive(true);
+        Text endText = _endGameCanvas.GetComponentInChildren<Text>();
         endText.text = InsertScore(endText.text);
     }
     //Enter score/highscore to gameend text block.
-    string InsertScore(string inp)
+    private string InsertScore(string inp)
     {
-        return inp.Replace("<scoretext>", scoreCalc.count.ToString("n2")).Replace("<hscoretext>", PlayerPrefs.GetFloat("HS").ToString("n2"));
+        return inp.Replace("<scoretext>", _scoreCalc.count.ToString("n2")).Replace("<hscoretext>", PlayerPrefs.GetFloat("HS").ToString("n2"));
     }
     #endregion
 }

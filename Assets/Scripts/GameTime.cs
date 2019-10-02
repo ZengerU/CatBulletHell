@@ -16,7 +16,7 @@ public class GameTime : MonoBehaviour
     #endregion
 
     #region Private Members.
-    GameLogic logic;
+    private GameLogic _logic;
     #endregion
 
     #region Public Functions
@@ -26,12 +26,12 @@ public class GameTime : MonoBehaviour
     #region Private Functions
     private void Start()
     {
-        logic = FindObjectOfType<GameLogic>();
+        _logic = FindObjectOfType<GameLogic>();
         highScore = PlayerPrefs.GetFloat("HS", 0);
     }
     private void Update()
     {
-        if (logic.gamePaused) return;
+        if (_logic.gamePaused) return;
         count += Time.deltaTime;
         GetComponent<Text>().text = $"Best: {Mathf.Max(highScore, count).ToString("n2")}. Current: {count.ToString("n2")}";
     }
