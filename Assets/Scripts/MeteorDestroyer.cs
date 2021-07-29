@@ -2,6 +2,7 @@
  *  Umut Zenger
  */
 
+using System;
 using UnityEngine;
 
 /// <summary>
@@ -10,23 +11,16 @@ using UnityEngine;
 
 public class MeteorDestroyer : MonoBehaviour
 {
-    #region Public Members
+    private MeteorSpawner _spawner;
 
-    #endregion
+    private void Awake()
+    {
+        _spawner = FindObjectOfType<MeteorSpawner>();
+    }
 
-    #region Private Members
-
-    #endregion
-
-    #region Public Functions
-
-    #endregion
-
-    #region Private Functions
     private void OnTriggerExit2D(Collider2D other)
     {
-        if (other.tag == "Meteor")
-            Destroy(other.gameObject);
+        if (other.CompareTag("Meteor"))
+            _spawner.SendObjectToPool(other.gameObject);
     }
-    #endregion
 }
